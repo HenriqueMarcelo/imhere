@@ -1,4 +1,11 @@
-import { Text, View, TextInput, TouchableOpacity, FlatList } from 'react-native'
+import {
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  FlatList,
+  Alert,
+} from 'react-native'
 import { styles } from './styles'
 import { useState } from 'react'
 import { Participant } from '../../components/Participant'
@@ -8,11 +15,26 @@ export default function Home() {
   const [participants, setParticipants] = useState<string[]>([])
 
   function handleParticipantAdd() {
+    if (participants.includes(inputText)) {
+      return Alert.alert(
+        'Participante existe',
+        'Já existe um participante na lista com esse nome.',
+      )
+    }
     setParticipants([...participants, inputText])
   }
 
   function handleParticipantRemove(name: string) {
-    setParticipants(participants.filter((p) => p !== name))
+    return Alert.alert('Remover', `Remover o participante ${name}?`, [
+      {
+        text: 'Sim',
+        onPress: () => setParticipants(participants.filter((p) => p !== name)),
+      },
+      {
+        text: 'Não',
+        style: 'cancel',
+      },
+    ])
   }
 
   return (
