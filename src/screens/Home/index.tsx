@@ -5,16 +5,20 @@ import { Participant } from '../../components/Participant'
 
 export default function Home() {
   const [inputText, setInputText] = useState('')
+  const [participants, setParticipants] = useState<string[]>([])
 
   function handleParticipantAdd() {
-    console.log('Você clicou no botão de Adicionar!')
+    setParticipants([...participants, inputText])
+  }
+
+  function handleParticipantRemove(name: string) {
+    setParticipants(participants.filter((p) => p !== name))
   }
 
   return (
     <View style={styles.container}>
       <Text style={styles.eventName}>Nome do Evento</Text>
       <Text style={styles.eventDate}>Sexta, 4 de novembro de 2022.</Text>
-      <Text style={styles.eventDate}>{inputText}</Text>
       <View style={styles.form}>
         <TextInput
           style={styles.input}
@@ -28,9 +32,13 @@ export default function Home() {
         </TouchableOpacity>
       </View>
 
-      <Participant name="Marcelo Henrique" />
-      <Participant name="Viniccius 13" />
-      <Participant name="Leandro Twin" />
+      {participants.map((participant) => (
+        <Participant
+          key={participant}
+          name={participant}
+          onRemove={handleParticipantRemove}
+        />
+      ))}
     </View>
   )
 }
