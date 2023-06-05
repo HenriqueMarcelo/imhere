@@ -22,6 +22,7 @@ export default function Home() {
       )
     }
     setParticipants([...participants, inputText])
+    setInputText('')
   }
 
   function handleParticipantRemove(name: string) {
@@ -46,7 +47,8 @@ export default function Home() {
           style={styles.input}
           placeholder="Nome do participante"
           placeholderTextColor="#6b6b6b"
-          onChangeText={(newText) => setInputText(newText)}
+          onChangeText={setInputText}
+          value={inputText}
         />
 
         <TouchableOpacity style={styles.button} onPress={handleParticipantAdd}>
