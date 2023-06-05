@@ -44,4 +44,9 @@ export const styles = StyleSheet.create({
     width: '100%',
     gap: 16,
   },
+  listEmptyText: {
+    color: '#FFF',
+    fontSize: 14,
+    textAlign: 'center',
+  },
 })
